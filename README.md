@@ -39,14 +39,14 @@ At the time of writing this document (May 2020), information for 40, 108 posters
 
 ### Step 1 : Downloading of posters and data preparation
 
-Using the poster download link in ```MovieGenre.csv``` poster images are to be downloaded.
+Using the poster download links in ```MovieGenre.csv```, poster images are downloaded with the ```urllib.request.urlopen()```function.
 
 Few data cleaning checks are performed :  
-- Removal of all rows in the csv that contain a NULL entry for any of IMDB Id, IMDB Link, Title, IMDB Score, Genre or link information
+- Dropping of dataset rows containing null values for any of the columns (IMDB Id, IMDB Link, Title, IMDB Score, Genre or link)
 - Removal of corrupt or bad images
 - Removal of duplicate entries (in movie IMDB Id)
-- It was observed that there were 1751 movies, for which the corresponding poster image was not found (broken or missing download link)
+- Dropping of dataset rows for which the poster image was not found (broken or missing download link)
 
-Code in ```Get_data.ipynb``` and ```Clean_data.ipynb```
+Code in ```Get_data.ipynb``` and ```Clean_data.ipynb``` saves images in a folder ```"Posters/"``` and performs the data cleaning steps. To preserve the relationship between poster images and the corresponding movie information, files are saved using the IMDB Id value. For example, ```114709.jpg``` is the poster for movie having IMDB Id 114709.
 
 ### Step 2 : One-hot encoding of multi-labels
