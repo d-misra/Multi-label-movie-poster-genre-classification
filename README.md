@@ -16,7 +16,6 @@ The implementation is based on Keras and Tensorflow.
 ```
 The Pianist (2002)                Family (0.614), War (0.428), Music (0.404)
 Life of Pi (2012)                 Adult (0.718), Animation (0.638), Family (0.291)
-Matrix (1999)                     Family (0.495), Crime (0.311), Sci-Fi (0.148)
 Gladiator (2000)                  Family (0.736), Adult (0.385), War (0.234)
 I-Robot (2004)                    Family (0.495), Crime (0.311), Sci-Fi (0.148)
 ```
