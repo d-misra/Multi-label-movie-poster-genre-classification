@@ -33,4 +33,4 @@ A publicly available IMDB dataset on [Kaggle](https://www.kaggle.com/neha1703/mo
 
 It consists of a CSV file containing the IMDB Id, IMDB Link, Title, IMDB Score, Genre and link to download over 40, 108 movie posters.
 
-![pic1](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Poster-images-test/original-csv.png)
+![pic1](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Poster-images-test/original-csv.png#center)
