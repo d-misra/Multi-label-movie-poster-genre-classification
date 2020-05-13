@@ -31,6 +31,22 @@ I-Robot (2004)                    Family (0.495), Crime (0.311), Sci-Fi (0.148)
 
 A publicly available IMDB dataset on [Kaggle](https://www.kaggle.com/neha1703/movie-genre-from-its-poster) is used in this project.
 
-It consists of a CSV file containing the IMDB Id, IMDB Link, Title, IMDB Score, Genre and link to download over 40, 108 movie posters.
+It consists of a CSV file ```MovieGenre.csv``` containing the IMDB Id, IMDB Link, Title, IMDB Score, Genre and link to download movie posters.  
 
 ![pic1](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Poster-images-test/original-csv.png#center)
+
+At the time of writing this document (May 2020), information for 40, 108 posters was found.
+
+### Step 1 : Downloading of posters and data preparation
+
+Using the poster download link in ```MovieGenre.csv``` poster images are to be downloaded.
+
+Few data cleaning checks are performed :  
+- Removal of all rows in the csv that contain a NULL entry for any of IMDB Id, IMDB Link, Title, IMDB Score, Genre or link information
+- Removal of corrupt or bad images
+- Removal of duplicate entries (in movie IMDB Id)
+- It was observed that there were 1751 movies, for which the corresponding poster image was not found (broken or missing download link)
+
+Code in ```Get_data.ipynb``` and ```Clean_data.ipynb```
+
+### Step 2 : One-hot encoding of multi-labels
