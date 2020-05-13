@@ -37,19 +37,19 @@ It consists of a CSV file ```MovieGenre.csv``` containing the IMDB Id, IMDB Link
 
 At the time of writing this document (May 2020), information for 40, 108 posters was found.
 
-### Step 1 : Downloading of posters and data preparation
+## Step 1 : Downloading of posters and data preparation
 
 Using the poster download links in ```MovieGenre.csv```, images are downloaded with the ```urllib.request.urlopen()``` function.
 
 Few data cleaning checks are performed :  
-- Dropping of dataset rows containing null values for any of the columns (IMDB Id, IMDB Link, Title, IMDB Score, Genre, link)
+- Dropping of dataset rows containing null values for any column (IMDB Id, IMDB Link, Title, IMDB Score, Genre, link)
 - Removal of corrupt or bad images
 - Removal of duplicate entries (in movie IMDB Id)
 - Dropping of dataset rows for which the poster image was not found (broken or missing download link)
 
 Code in ```Get_data.ipynb``` and ```Clean_data.ipynb``` saves images in a folder ```"Posters/"``` and performs the data cleaning steps. To preserve the relationship between poster images and the corresponding movie information, files are saved using the IMDB Id value. For example, ```114709.jpg``` is the poster for movie having IMDB Id 114709.
 
-### Step 2 : Multi-hot encoding of labels
+## Step 2 : Multi-hot encoding of labels
 The class labels (i.e the genres) are categorical in nature and have to be converted into numerical form before classification is performed. One-hot encoding is adopted, which converts categorical labels into a vector of binary values. 28 unique genres are found and each genre is represented as a one-hot encoded column. If a movie belongs to a genre, the value is 1("hot"), else 0. As an image can belong to multiple genres, here it is a case of multiple-hot encoding (as multiple genre values can be "hot"). After transformation, the encoded labels look like this:
 
 ![multi-hot](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Poster-images-test/multi-hot-encoding.png)
