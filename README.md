@@ -61,7 +61,7 @@ The data is partitioned and organised as follows :
 - ```Val.csv``` - 9, 967 images
 - ```Test.csv```- 1, 108 images
 
-## Step 3 : Training CNN models
+## Step 3 : Model construction and training
 
 Two CNN architectures were tested in this project. In both cases, the final output layer has 28 neurons (for 28 genre labels) and uses a ```sigmoid```activation function. Unlike softmax activation, the sum of the class-wise predicted probability for a sigmoid network may not necessarily be 1, which enables us to perform multi-label classification.  
 
@@ -102,7 +102,7 @@ Model training parameters :
 
 Code in ```Train-1.ipynb```
 
-- **Fine-tuning pre-trained VGG16**
+- **Method 2 - Fine-tuning pre-trained VGG16**
 
 VGG16 model is loaded with pre-trained weights (Imagenet) and without the classifier layer (top layer). All the layers, except the last 4, are then frozen. Finally, to this vgg convolutional base model, a fully connected classifier layer is added followed by a sigmoid layer with 28 outputs. For an input image shape of ```(200,150,3)```, the model summary is:
 
@@ -119,7 +119,7 @@ Code in ```Train-2.py```
 
 More details on fine-tuning a pre-trained network in Keras can be found in tutorials [here](https://www.learnopencv.com/keras-tutorial-fine-tuning-using-pre-trained-models/) and [here](https://flyyufelix.github.io/2016/10/03/fine-tuning-in-keras-part1.html)
 
-## Inference & Accuracy
+## Step 4 : Inference & Accuracy
 
 For predictions, the genres corresponding to the top 3 probability, are chosen.
 
