@@ -115,4 +115,27 @@ Model training parameters :
 - Loss = ```binary_crossentropy```
 - Optimizer = ```RMSprop```
 
-More details on fine-tuning a pre-trained network in Keras, can be found in this [tutorial](https://www.learnopencv.com/keras-tutorial-fine-tuning-using-pre-trained-models/)
+Code in ```Train-2.py```
+
+More details on fine-tuning a pre-trained network in Keras can be found in tutorials [here](https://www.learnopencv.com/keras-tutorial-fine-tuning-using-pre-trained-models/) and [here](https://flyyufelix.github.io/2016/10/03/fine-tuning-in-keras-part1.html)
+
+## Inference & Accuracy
+
+For predictions, the genres corresponding to the top 3 probability, are chosen.
+
+- Single image prediction in ```Test_single_image.ipynb```
+- Evaluating overall accuracy of all test images in ``` Test-accuracy.ipynb```
+
+To compute accuracy, an input image poster is considered as *correctly identified* if atleast 1 out of the 3 predicted genres, are found in the original set of genres for the movie. By this evaluation method, an overall test accuracy of 77.50% is achieved with the fine-tuned vgg16 model and 72.36% with the custom CNN model.
+
+## Further work
+
+This dataset is challenging since it is highly imbalanced. The distribution of images across all genres is :
+![genre](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Images/genres.png)
+
+
+
+## Acknowledgements
+
+- Tutorial in [Pytorch](https://www.learnopencv.com/multi-label-image-classification-with-pytorch/) and [Keras](https://www.pyimagesearch.com/2018/05/07/multi-label-classification-with-keras/)
+- Blog [post](https://www.analyticsvidhya.com/blog/2019/04/build-first-multi-label-image-classification-model-python/)
