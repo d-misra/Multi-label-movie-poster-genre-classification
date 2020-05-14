@@ -131,9 +131,10 @@ To compute accuracy, an input image poster is considered as *correctly identifie
 ## Further work
 
 This dataset is challenging since it is highly imbalanced. The distribution of images across all genres is :
+
 ![genre](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Images/genres.png)
 
-
+Genres such as ```Drama``` and ```Comedy``` have a high number of instances compared to others, whereas some like ```Talk-Show, Reality-Show``` or ```Game-TV``` have very low instances. Re-sampling techniques could be used for having a more equal distribution of the different genres. 
 
 ## Acknowledgements
 
