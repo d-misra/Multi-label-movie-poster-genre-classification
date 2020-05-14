@@ -12,7 +12,7 @@ The implementation is based on Keras and Tensorflow.
 ![pic4](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Poster-images-test/Gladiator.jpg)
 ![pic5](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Poster-images-test/i-robot.jpg) -->
 
-![pic1](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Poster-images-test/Demo.png)
+![pic1](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Images/Demo.png)
 ```
 The Pianist (2002)                Family (0.614), War (0.428), Music (0.404)
 Life of Pi (2012)                 Adult (0.718), Animation (0.638), Family (0.291)
@@ -33,7 +33,7 @@ A publicly available IMDB dataset on [Kaggle](https://www.kaggle.com/neha1703/mo
 
 It consists of a CSV file ```MovieGenre.csv``` containing the IMDB Id, IMDB Link, Title, IMDB Score, Genre and link to download movie posters.  
 
-![pic1](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Poster-images-test/original-csv.png#center)
+![pic1](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Images/original-csv.png#center)
 
 At the time of writing this document (May 2020), information for 40, 108 posters was found.
 
@@ -52,6 +52,67 @@ Code in ```Get_data.ipynb``` and ```Clean_data.ipynb``` saves images in a folder
 ## Step 2 : Multi-hot encoding of labels
 The class labels (i.e the genres) are categorical in nature and have to be converted into numerical form before classification is performed. One-hot encoding is adopted, which converts categorical labels into a vector of binary values. 28 unique genres are found and each genre is represented as a one-hot encoded column. If a movie belongs to a genre, the value is 1("hot"), else 0. As an image can belong to multiple genres, here it is a case of multiple-hot encoding (as multiple genre values can be "hot"). After transformation, the encoded labels look like this:
 
-![multi-hot](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Poster-images-test/multi-hot-encoding.png)
+![multi-hot](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Images/multi-hot-encoding.png)
 
-Code in ```Organise_data.ipynb``` performs this transformation, manually. Alternately, [```MultiLabelBinarizer```](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MultiLabelBinarizer.html) from ```sklearn``` can be used directly for this purpose.
+Code in ```Organise_data.ipynb``` performs this transformation, manually. Alternately, [```MultiLabelBinarizer```](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MultiLabelBinarizer.html) from ```sklearn``` can be used for performing one-hot encoding for multi-label data.
+
+The data is partitioned and organised as follows :
+- ```Train.csv``` - 25, 842 images
+- ```Val.csv``` - 9, 967 images
+- ```Test.csv```- 1, 108 images
+
+## Step 3 : Training CNN models
+
+Two CNN architectures were tested in this project. In both cases, the final output layer has 28 neurons (for 28 genre labels) and uses a ```sigmoid```activation function. Unlike softmax activation, the sum of the class-wise predicted probability for a sigmoid network may not necessarily be 1, which enables us to perform multi-label classification.  
+
+- **Method 1 : Custom architecture**
+
+```
+num_classes = 28  
+
+model = Sequential()
+model.add(Conv2D(filters=16, kernel_size=(5, 5), activation="relu", input_shape=(200,150,3)))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.25))
+model.add(Conv2D(filters=32, kernel_size=(5, 5), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.25))
+model.add(Conv2D(filters=64, kernel_size=(5, 5), activation="relu"))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.25))
+model.add(Conv2D(filters=64, kernel_size=(5, 5), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Dropout(0.25))
+model.add(Flatten())
+model.add(Dense(128, activation='relu'))
+model.add(Dropout(0.5))
+model.add(Dense(64, activation='relu'))
+model.add(Dropout(0.5))
+model.add(Dense(num_classes, activation='sigmoid'))
+model.summary()
+```
+
+![pic](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Images/model-summary.png)
+
+Model training parameters :
+- Epochs = 30
+- Loss = ```binary_crossentropy```
+- Optimizer = ```Adam ```
+- Input shape = ```(200,150,3)```
+
+Code in ```Train-1.ipynb```
+
+- **Fine-tuning pre-trained VGG16**
+
+VGG16 model is loaded with pre-trained weights (Imagenet) and without the classifier layer (top layer). All the layers, except the last 4, are then frozen. Finally, to this vgg convolutional base model, a fully connected classifier layer is added followed by a sigmoid layer with 28 outputs. For an input image shape of ```(200,150,3)```, the model summary is:
+
+![vgg](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Images/model_summary-vgg.png)
+
+An ```ImageDataGenerator``` is prepared before training, to perform data augmentation.
+
+Model training parameters :
+- Epochs = 50
+- Loss = ```binary_crossentropy```
+- Optimizer = ```RMSprop```
+
+More details on fine-tuning a pre-trained network in Keras, can be found in this [tutorial](https://www.learnopencv.com/keras-tutorial-fine-tuning-using-pre-trained-models/)
