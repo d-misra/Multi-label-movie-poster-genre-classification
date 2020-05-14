@@ -134,9 +134,9 @@ This dataset is challenging since it is highly imbalanced. The distribution of i
 
 ![genre](https://github.com/d-misra/Multi-label-movie-poster-genre-classification/blob/master/Images/genres.png)
 
-Genres such as ```Drama``` and ```Comedy``` have a high number of instances compared to others, whereas some like ```Talk-Show, Reality-Show``` or ```Game-TV``` have very low instances. Re-sampling techniques could be used for having a more equal distribution of the different genres. 
+Genres such as ```Drama``` and ```Comedy``` have a high number of instances compared to others, whereas some like ```Talk-Show, Reality-Show``` or ```Game-TV``` have very low instances. Re-sampling techniques could be used for having a more equal distribution of the different genres.
 
 ## Acknowledgements
 
 - Tutorial in [Pytorch](https://www.learnopencv.com/multi-label-image-classification-with-pytorch/) and [Keras](https://www.pyimagesearch.com/2018/05/07/multi-label-classification-with-keras/)
-- Blog [post](https://www.analyticsvidhya.com/blog/2019/04/build-first-multi-label-image-classification-model-python/)
+- Blog [post](https://www.analyticsvidhya.com/blog/2019/04/build-first-multi-label-image-classification-model-python/) and github [repo](https://github.com/benckx/dnn-movie-posters) on poster genre classification
